@@ -1,5 +1,5 @@
 # weather_app
-To use project: 
+To run project locally: 
 Create secrets.json file in project folder
 
 Example:
@@ -7,6 +7,9 @@ Example:
   "token": "qwerty",
   "key": "qwerty"
 }
+
+To run project on heroku: 
+Setup heroku config variables - TOKEN_APP, KEY_APP
 
 *token from your account- https://account.mapbox.com/*
 
