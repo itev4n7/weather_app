@@ -2,11 +2,14 @@ const request = require('postman-request')
 const fs = require('fs')
 const path = require('path')
 
-const secretPath = path.join(__dirname, '../../../secrets.json')
-const secretFile = fs.readFileSync(secretPath, 'utf8')
+let key = process.env.KEY_APP
+if (!key) {
+    const secretPath = path.join(__dirname, '../../../secrets.json')
+    const secretFile = fs.readFileSync(secretPath, 'utf8')
+    key = JSON.parse(secretFile).key
+}
 
 const forecast = (latitude, longitude, callback) => {
-    const key = JSON.parse(secretFile).key
     const url = `http://api.weatherstack.com/current?access_key=${key}&query=${latitude},${longitude}`
     request({ url, json: true }, (error, { body }) => {
         if (error) {

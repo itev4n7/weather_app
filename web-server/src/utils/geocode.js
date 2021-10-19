@@ -2,11 +2,14 @@ const request = require('postman-request')
 const fs = require('fs')
 const path = require('path')
 
-const secretPath = path.join(__dirname, '../../../secrets.json')
-const secretFile = fs.readFileSync(secretPath, 'utf8')
+let token = process.env.TOKEN_APP
+if (!token) {
+    const secretPath = path.join(__dirname, '../../../secrets.json')
+    const secretFile = fs.readFileSync(secretPath, 'utf8')
+    token = JSON.parse(secretFile).token
+}
 
 const geocode = (address, callback) => {
-    const token = JSON.parse(secretFile).token
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${token}`
     request({ url, json: true }, (error, { body }) => {
         if (error) {
